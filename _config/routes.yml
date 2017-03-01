@@ -1,0 +1,7 @@
+---
+Name: googlemerchantroutes
+After: framework/routes#coreroutes
+---
+Director:
+  rules:
+    'commerce/google-merchant-feed.txt': 'GoogleMerchantController'

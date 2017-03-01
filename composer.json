@@ -1,0 +1,22 @@
+{
+  "name": "bahuma/silverstripe-commerce-google-merchant",
+  "description": "Provides product feeds for google merchant for silverstripe commerce",
+  "keywords": [
+    "silverstripe",
+    "ecommerce",
+    "shop",
+    "shipping",
+    "google"
+  ],
+  "type": "silverstripe-module",
+  "extra": {
+    "installer-name": "commerce_google_merchant"
+  },
+  "authors": [
+    {
+      "name": "Max Bachhuber",
+      "email": "max.bachhuber@bahuma.io"
+    }
+  ],
+  "homepage": "https://github.com/bahuma/silverstripe-commerce-google-merchant"
+}

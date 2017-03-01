@@ -1,0 +1,8 @@
+---
+Name: commerce-google-merchant
+After: 
+  - '#commerce'
+---
+ShopCategory:
+  extensions:
+    - GoogleMerchantShopCategoryExtension
