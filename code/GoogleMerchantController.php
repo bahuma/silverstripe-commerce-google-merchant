@@ -19,30 +19,34 @@ class GoogleMerchantController extends Controller {
 		$output = "id	title	description	google product category	link	image link	condition	availability	price	shipping	identifier_exists	adult\n";
 
 		foreach($allItems as $item) {
+			if ($item->ClassName == 'ShopItemVariation') {
+				$category = $item->Item()->Categories()->first();
+			} else {
+				$category = $item->Categories()->first();
+			}
+
+			if (!$category->GoogleMerchantIncluded) {
+				continue;
+			}
+
+
+
 			$output .= $item->Sku;
 			$output .= "\t";
-			
-			if ($item->ClassName == 'ShopItemVariation') {
-                                $output .= $item->Item()->Categories()->first()->Title . ' | ' . $item->Title;
-                        } else {
-                                $output .= $item->Categories()->first()->Title . ' | ' . $item->Title;
-                        }
-                        $output .= "\t";
-			
+
+			$output .= $category->Title . ' | ' . $item->Title;
+			$output .= "\t";
+
 			$output .= trim(str_replace("\t", '', str_replace("\r", '', str_replace("\n", '', strip_tags(str_replace('</p>', ' ', $item->Content))))));
 			$output .= "\t";
-			
-			if ($item->ClassName == 'ShopItemVariation') {
-				$output .= $item->Item()->Categories()->first()->GoogleProductCategory;
-			} else {
-				$output .= $item->Categories()->first()->GoogleProductCategory;
-			}
+
+			$output .= $category->GoogleProductCategory;
 			$output .= "\t";
 
 			$output .= Director::absoluteBaseURL() . ltrim($item->Link(), '/');
-			$output .= "\t"; 
+			$output .= "\t";
 
-			$output .= $item->SortedImages()->first()->FitMax(1200, 1200)->AbsoluteLink(); 
+			$output .= $item->SortedImages()->first()->FitMax(1200, 1200)->AbsoluteLink();
 			$output .= "\t";
 
 			$output .= 'new';
@@ -58,10 +62,10 @@ class GoogleMerchantController extends Controller {
 			$output .= "\t";
 
 			$output .= 'no';
-			$output .= "\t";		
+			$output .= "\t";
 
 			$output .= 'no';
-			
+
 			$output .= "\n";
 		}
 
