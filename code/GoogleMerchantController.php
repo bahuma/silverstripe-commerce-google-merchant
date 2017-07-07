@@ -22,8 +22,12 @@ class GoogleMerchantController extends Controller {
 			$output .= $item->Sku;
 			$output .= "\t";
 			
-			$output .= $item->Title;
-			$output .= "\t";
+			if ($item->ClassName == 'ShopItemVariation') {
+                                $output .= $item->Item()->Categories()->first()->Title . ' | ' . $item->Title;
+                        } else {
+                                $output .= $item->Categories()->first()->Title . ' | ' . $item->Title;
+                        }
+                        $output .= "\t";
 			
 			$output .= trim(str_replace("\t", '', str_replace("\r", '', str_replace("\n", '', strip_tags(str_replace('</p>', ' ', $item->Content))))));
 			$output .= "\t";
